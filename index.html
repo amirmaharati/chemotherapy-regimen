@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>OncoRegimens</title>
+  <meta name="description" content="Chemotherapy regimens, drug administration, premedication, prophylaxis and dose calculators for medical oncology. Based on NCCN guidelines and eviQ protocols.">
+  <meta name="theme-color" content="#0f5c8c">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#/" aria-label="OncoRegimens home">
+        <img src="icons/icon.svg" alt="" width="28" height="28">
+        <span>OncoRegimens</span>
+      </a>
+      <form class="search" role="search" id="search-form">
+        <label for="search-input" class="visually-hidden">Search regimens, drugs and topics</label>
+        <input id="search-input" type="search" placeholder="Search regimen, drug, cancer…" autocomplete="off">
+      </form>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
+    </div>
+    <nav class="mainnav" aria-label="Main">
+      <a href="#/regimens?setting=outpatient" data-nav="outpatient">Outpatient</a>
+      <a href="#/regimens?setting=inpatient" data-nav="inpatient">Inpatient</a>
+      <a href="#/drugs" data-nav="drugs">Drugs A–Z</a>
+      <a href="#/supportive" data-nav="supportive">Prophylaxis &amp; supportive care</a>
+      <a href="#/principles" data-nav="principles">Principles</a>
+      <a href="#/calculators" data-nav="calculators">Calculators</a>
+      <a href="#/favorites" data-nav="favorites">★ Saved</a>
+      <a href="#/about" data-nav="about">About &amp; sources</a>
+    </nav>
+  </header>
+
+  <div class="disclaimer-bar" id="disclaimer-bar" hidden>
+    <p><strong>For qualified health professionals only.</strong> This is a reference aid, not a prescribing system. Always check doses against the current NCCN guideline, the eviQ protocol and your local policy before treating a patient.</p>
+    <button type="button" class="btn small" id="disclaimer-ok">I understand</button>
+  </div>
+
+  <main id="main" tabindex="-1"></main>
+
+  <footer class="footer">
+    <p>Content based on NCCN Guidelines® and eviQ Cancer Treatments Online. Not affiliated with or endorsed by NCCN or eviQ. <a href="#/about">Sources &amp; disclaimer</a></p>
+  </footer>
+
+  <!-- Classic scripts (not modules) so the app also works when opened straight from disk. Order matters: core first, app last. -->
+  <script src="js/core.js"></script>
+  <script src="js/calc.js"></script>
+  <script src="data/common.js"></script>
+  <script src="data/drugs.js"></script>
+  <script src="data/regimens/breast.js"></script>
+  <script src="data/regimens/gastrointestinal.js"></script>
+  <script src="data/regimens/lung.js"></script>
+  <script src="data/regimens/genitourinary-gynae.js"></script>
+  <script src="data/regimens/head-neck-cns-sarcoma.js"></script>
+  <script src="data/regimens/lymphoma-myeloma.js"></script>
+  <script src="data/regimens/leukaemia.js"></script>
+  <script src="data/supportive.js"></script>
+  <script src="data/principles.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "OncoRegimens — chemotherapy regimens",
+  "short_name": "OncoRegimens",
+  "description": "Chemotherapy regimens, drug administration, premedication, prophylaxis and dose calculators (NCCN / eviQ based).",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#0f5c8c",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
