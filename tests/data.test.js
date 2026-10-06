@@ -25,7 +25,8 @@ test("every data file is loaded by index.html and cached by the service worker",
   const sw = fs.readFileSync(path.join(ROOT, "sw.js"), "utf8");
   const regimenFiles = fs.readdirSync(path.join(ROOT, "data/regimens")).map((f) => "data/regimens/" + f);
   const dataFiles = fs.readdirSync(path.join(ROOT, "data")).filter((f) => f.endsWith(".js")).map((f) => "data/" + f);
-  for (const f of [...regimenFiles, ...dataFiles, "js/core.js", "js/calc.js", "js/app.js"]) {
+  const jsFiles = fs.readdirSync(path.join(ROOT, "js")).filter((f) => f.endsWith(".js")).map((f) => "js/" + f);
+  for (const f of [...regimenFiles, ...dataFiles, ...jsFiles, "js/vendor/qrcode.js"]) {
     assert.ok(scripts.includes(f), f + " missing from index.html");
     assert.ok(sw.includes('"' + f + '"'), f + " missing from sw.js precache list");
   }

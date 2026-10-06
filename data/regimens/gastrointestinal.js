@@ -154,7 +154,7 @@
         { drug: "leucovorin", dose: 400, unit: "mg/m2", route: "IV infusion", days: "Day 1", admin: "Over 2 hours after oxaliplatin (PRODIGE 24; some centres run it with oxaliplatin). eviQ: 50 mg IV bolus." },
         { drug: "irinotecan", dose: 150, unit: "mg/m2", route: "IV infusion", days: "Day 1", admin: "Over 90 min via Y-site, started 30 min after leucovorin begins." },
         { drug: "fluorouracil", label: "Fluorouracil (infusion — no bolus)", dose: 2400, unit: "mg/m2", route: "Continuous IV infusion", days: "Days 1–3 (46 h)", admin: "Elastomeric pump. **No 5-FU bolus** in the modified regimen." },
-        { drug: "filgrastim", label: "Pegfilgrastim", dose: 6, unit: "mg", route: "SC", days: "Day 3–4 (after pump disconnection)", admin: "Primary prophylaxis (eviQ includes it routinely)." },
+        { drug: "filgrastim", label: "Pegfilgrastim", dose: 6, unit: "mg", route: "SC", days: "Day 3 (or day 4, after pump disconnection)", admin: "Primary prophylaxis (eviQ includes it routinely)." },
       ],
       order: ["Antiemetics (± atropine)", "Oxaliplatin (2 h)", "Leucovorin (2 h), with irinotecan added after 30 min (90 min)", "5-FU 46-hour pump"],
       premeds: [
@@ -254,6 +254,10 @@
         { phase: "Cycles 1–8 (every 21 days)", drug: "gemcitabine", dose: 1000, unit: "mg/m2", route: "IV infusion", days: "Days 1, 8", admin: "Over 30 min." },
         { phase: "Maintenance (every 28 days)", drug: "durvalumab", dose: 1500, unit: "mg", route: "IV infusion", days: "Day 1", admin: "Over 60 min." },
       ],
+      phaseInfo: {
+        "Cycles 1–8 (every 21 days)": { days: 21, cycles: 8 },
+        "Maintenance (every 28 days)": { days: 28, cycles: null },
+      },
       order: ["Antiemetics", "Durvalumab", "Pre-hydration", "Cisplatin", "Gemcitabine", "Post-hydration"],
       premeds: [
         T.hec + " (NCCN lists cisplatin as high risk at any dose; eviQ treats this low-dose schedule as moderate risk — adjust to the patient.)",

@@ -30,9 +30,10 @@
       <a href="#/regimens?setting=outpatient" data-nav="outpatient">Outpatient</a>
       <a href="#/regimens?setting=inpatient" data-nav="inpatient">Inpatient</a>
       <a href="#/drugs" data-nav="drugs">Drugs A–Z</a>
+      <a href="#/interactions" data-nav="interactions">Interactions</a>
       <a href="#/supportive" data-nav="supportive">Prophylaxis &amp; supportive care</a>
       <a href="#/principles" data-nav="principles">Principles</a>
-      <a href="#/calculators" data-nav="calculators">Calculators</a>
+      <a href="#/calculators" data-nav="calculators">Tools</a>
       <a href="#/favorites" data-nav="favorites">★ Saved</a>
       <a href="#/about" data-nav="about">About &amp; sources</a>
     </nav>
@@ -49,11 +50,20 @@
     <p>Content based on NCCN Guidelines® and eviQ Cancer Treatments Online. Not affiliated with or endorsed by NCCN or eviQ. <a href="#/about">Sources &amp; disclaimer</a></p>
   </footer>
 
-  <!-- Classic scripts (not modules) so the app also works when opened straight from disk. Order matters: core first, app last. -->
+  <!-- Classic scripts (not modules) so the app also works when opened straight from disk.
+       Order matters: engines, then data, then views, then the router. -->
   <script src="js/core.js"></script>
   <script src="js/calc.js"></script>
+  <script src="js/schedule.js"></script>
+  <script src="js/organ.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/cumulative.js"></script>
+  <script src="js/plan.js"></script>
+  <script src="js/patient.js"></script>
+  <script src="js/vendor/qrcode.js"></script>
   <script src="data/common.js"></script>
   <script src="data/drugs.js"></script>
+  <script src="data/dose-adjustments.js"></script>
   <script src="data/regimens/breast.js"></script>
   <script src="data/regimens/gastrointestinal.js"></script>
   <script src="data/regimens/lung.js"></script>
@@ -63,6 +73,13 @@
   <script src="data/regimens/leukaemia.js"></script>
   <script src="data/supportive.js"></script>
   <script src="data/principles.js"></script>
+  <script src="data/interactions.js"></script>
+  <script src="data/patient.js"></script>
+  <script src="data/patient-drugs.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/views-main.js"></script>
+  <script src="js/views-tools.js"></script>
+  <script src="js/views-patient.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

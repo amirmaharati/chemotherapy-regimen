@@ -9,7 +9,14 @@ Content is based on the **NCCN Guidelines** and **eviQ** protocols. Each regimen
 ## What is inside
 
 - **47 regimens** — 34 outpatient, 13 inpatient. For each: indications, doses, route, days, how to give each drug, order of administration, premedication, take-home medicines and prophylaxis, checks before each cycle, precautions, dose-modification summary, sources.
-- **Dose calculator on every regimen page** — enter height, weight, age, sex and creatinine; it works out BSA, CrCl, eGFR and every drug dose (carboplatin by Calvert, vincristine capped at 2 mg, etc.).
+- **Dose calculator on every regimen page** — enter height, weight, age, sex, creatinine and (optionally) liver tests; it works out BSA, CrCl, eGFR and every drug dose (carboplatin by Calvert, vincristine capped at 2 mg, etc.).
+- **Kidney, liver and age dose rules applied automatically** — e.g. cisplatin 75% at GFR 45–59, 50% at 30–44 and "do not give" under 30; doxorubicin and vincristine reduced for high bilirubin; docetaxel blocked if bilirubin > ULN; high-dose cytarabine reduced for age and kidney function. Each regimen also has a kidney/liver adjustment table.
+- **Printable chemo order sheet** — patient details, measurements, calculated and adjusted doses, extra "% given" for toxicity reductions, premedication, take-home medicines and signature boxes.
+- **Day-by-day calendar** for each cycle, with real dates from a start date and a phone-calendar (.ics) download.
+- **Drug interaction checker** — azoles with vincristine or venetoclax, methotrexate with PPIs/NSAIDs/co-trimoxazole, QT drugs with arsenic, warfarin with capecitabine, and more. Each regimen lists the medicines to watch for.
+- **Cumulative dose tracker** — lifetime anthracycline (doxorubicin-equivalent) and bleomycin totals from previous regimens, with limits and "what if I give N more cycles".
+- **Patient leaflets** for every regimen in plain language: what each medicine does, how it is given, side effects sorted into "emergency", "call today" and "common — usually not dangerous", food advice, and questions to ask.
+- **Patient app** — press "Give to patient" on a regimen, enter the start date and your team's phone numbers, and the patient scans a QR code. Their phone then shows their treatment dates, "today is day 9 of cycle 1", the next treatment, warnings when blood counts are lowest, one-tap call buttons, side-effect guidance and food advice — offline, with phone-calendar reminders.
 - **48 drug pages** — how to inject/infuse, diluent, vesicant status, main toxicities, interactions, renal and hepatic advice, extravasation steps.
 - **22 prophylaxis & supportive-care pages** — antiemetics, G-CSF, febrile neutropenia, hepatitis B, HSV/VZV, PJP, antifungal, antibacterial, TLS, cisplatin hydration, mesna, high-dose methotrexate, steroid eye drops, VTE, cardiac and lung monitoring, immunotherapy side effects, diarrhoea, neuropathy, mucositis, differentiation syndrome, fertility.
 - **11 principles pages** — before treatment, dose calculation, prescribing and checking, safe handling, giving chemotherapy, intrathecal safety, extravasation, hypersensitivity, oral chemotherapy, toxicity grading, special populations.
@@ -73,6 +80,16 @@ Content is based on the **NCCN Guidelines** and **eviQ** protocols. Each regimen
 | Lymphoma | R-ICE |
 | Sarcoma | AI (doxorubicin + ifosfamide) |
 
+## The patient app — how it works
+
+1. On a regimen page press **Give to patient (app)**.
+2. Enter the date of day 1, number of cycles and your team's phone numbers (saved on your device for next time).
+3. The patient scans the QR code (or you send the link). They tap **Save to this phone** and **Add dates to my phone calendar**.
+
+**Privacy:** the plan travels inside the link itself (after the `#`, which browsers never send to a server). Nothing is stored on a server; the plan lives only on the patient's phone.
+
+**Limits:** a sent plan cannot be changed — send a new link if the plan changes. Automatic messages from the doctor to the patient's app would need a server with accounts (not built). The app must be online (e.g. GitHub Pages) for patients to open the link.
+
 ## How to open the app
 
 **Option 1 — on your computer:** download the repository and double-click `index.html`. It opens in your browser. No installation needed.
@@ -95,7 +112,7 @@ After any change run the tests (needs Node.js 18+):
 npm test
 ```
 
-The tests check every regimen (known drugs, valid units, doses, links, no missing fields) and the calculators.
+The tests check every regimen (known drugs, valid units, doses, links, no missing fields, readable treatment days), the kidney/liver rules, the calculators, the interaction data, the patient content and the patient link.
 
 ## Project layout
 
@@ -103,14 +120,26 @@ The tests check every regimen (known drugs, valid units, doses, links, no missin
 index.html              page shell
 css/styles.css          all styles (light/dark)
 js/core.js              shared namespace + fixed vocabularies
-js/calc.js              BSA, CrCl, eGFR, Calvert, dose calculation
-js/app.js               pages, search, router
+js/calc.js              BSA, CrCl, eGFR, Calvert, final dose
+js/organ.js             kidney / liver / age dose-rule engine
+js/schedule.js          treatment days, calendar, .ics export
+js/interactions.js      interaction checker engine
+js/cumulative.js        anthracycline / bleomycin totals
+js/plan.js              patient plan link (encode / decode)
+js/patient.js           builds plain-language leaflets
+js/ui.js, js/views-*.js pages (clinician, tools, patient)
+js/app.js               router and start-up
+js/vendor/qrcode.js     QR code generator (MIT, Kazuhiko Arase)
 data/common.js          shared text (antiemetic schedules, prophylaxis wording)
 data/drugs.js           drug pages
+data/dose-adjustments.js kidney / liver rules per drug
 data/regimens/*.js      regimens by cancer type
 data/supportive.js      prophylaxis & supportive care
 data/principles.js      principles of administration
-tests/                  data and calculator tests (node --test)
+data/interactions.js    interaction rules, drug classes, other medicines
+data/patient.js         patient side-effect guide, food advice, general advice
+data/patient-drugs.js   plain-language drug information
+tests/                  data, calculator, rules, calendar and tool tests (node --test)
 sw.js                   offline cache
 ```
 

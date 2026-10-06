@@ -18,7 +18,8 @@ function loadOnco() {
   const sandbox = {};
   vm.createContext(sandbox);
   scriptsFromIndex()
-    .filter((src) => src !== "js/app.js")
+    // Views and the router need a browser (DOM); the vendored QR library is not needed in tests.
+    .filter((src) => !/^js\/(app|ui|views-[\w-]+)\.js$/.test(src) && !/^js\/vendor\//.test(src))
     .forEach((src) => {
       const code = fs.readFileSync(path.join(ROOT, src), "utf8");
       vm.runInContext(code, sandbox, { filename: src });

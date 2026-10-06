@@ -321,9 +321,113 @@ details.calc-box[open] > summary { margin-bottom: .75rem; }
 
 .empty { color: var(--text-muted); padding: 1rem 0; }
 
+/* ---------- Forms (shared) ---------- */
+.form-group-title { grid-column: 1 / -1; font-weight: 650; color: var(--text); font-size: .9rem; margin-top: .4rem; border-bottom: 1px solid var(--border); padding-bottom: .2rem; }
+.calc-form .wide { grid-column: 1 / -1; }
+textarea { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: .4rem .55rem; width: 100%; }
+input[type="date"], input[type="tel"] { font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: .4rem .55rem; }
+.head-actions { margin: .5rem 0; }
+
+/* ---------- Adjusted doses ---------- */
+td .calc .full, td .calc .why { display: block; font-family: var(--font); font-size: .78rem; white-space: normal; }
+td .calc .full { color: var(--text-muted); text-decoration: line-through; }
+td .calc .why { color: var(--warn); }
+td .calc.adjusted { color: var(--warn); font-weight: 700; }
+td .calc.avoid { color: var(--danger); font-family: var(--font); font-weight: 700; white-space: normal; }
+td .calc.caution .why { color: var(--warn); }
+.txt-danger { color: var(--danger); }
+
+/* ---------- Calendar ---------- */
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin: .5rem 0 1rem; }
+.cal-day { border: 1px solid var(--border); border-radius: 8px; padding: .3rem; min-height: 64px; background: var(--surface-2); opacity: .7; overflow: hidden; }
+.cal-day.has { background: var(--surface); opacity: 1; border-color: var(--brand); }
+.cal-num { font-size: .72rem; font-weight: 700; color: var(--text-muted); }
+.cal-date { font-size: .7rem; color: var(--brand); }
+.chip { display: inline-block; font-size: .72rem; font-weight: 600; background: var(--brand-soft); color: var(--brand); border-radius: 6px; padding: .05rem .3rem; margin: .1rem .1rem 0 0; white-space: nowrap; }
+.chip.big { font-size: .9rem; padding: .25rem .55rem; border-radius: 999px; }
+.chip.big button { border: 0; background: none; color: inherit; cursor: pointer; font-size: 1rem; line-height: 1; padding: 0 0 0 .2rem; }
+.cal-controls { margin-bottom: .5rem; }
+@media (max-width: 560px) { .cal-day { min-height: 54px; padding: .2rem; } .chip { font-size: .62rem; padding: 0 .2rem; } }
+
+/* ---------- Interactions ---------- */
+.ix-list { list-style: none; padding: 0; }
+.ix-list li { border-bottom: 1px solid var(--border); padding: .55rem 0; }
+.ix-search { position: relative; flex: 1 1 280px; }
+.ix-search input { width: 100%; }
+.suggest { position: absolute; z-index: 5; left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); }
+.suggest:empty { display: none; }
+.suggest button { display: block; width: 100%; text-align: left; border: 0; background: none; padding: .45rem .6rem; cursor: pointer; color: var(--text); font: inherit; }
+.suggest button:hover { background: var(--surface-2); }
+
+/* ---------- Cumulative tracker ---------- */
+.cu-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(70px, 110px) auto; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+.cu-per { grid-column: 1 / -1; margin-top: -.2rem; }
+.check-chip { display: inline-flex; gap: .35rem; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: .25rem .65rem; font-size: .88rem; }
+.meter { position: relative; height: 14px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: .3rem 0 .4rem; border: 1px solid var(--border); }
+.meter-fill { height: 100%; background: linear-gradient(90deg, var(--ok), var(--warn), var(--danger)); }
+.meter-mark { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--text); opacity: .6; }
+
+/* ---------- Order sheet ---------- */
+.order-sheet { font-size: .9rem; }
+.sheet-head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-bottom: 2px solid var(--text); padding-bottom: .5rem; margin-bottom: .6rem; }
+.sheet-title { font-weight: 800; letter-spacing: .06em; }
+.sheet-reg { font-size: 1.1rem; font-weight: 700; }
+.sheet-box { border: 1px solid var(--border); border-radius: 8px; padding: .4rem .7rem; }
+.sheet-grid { margin-bottom: .6rem; }
+.sheet-grid th { width: 1%; white-space: nowrap; text-transform: none; font-size: .8rem; }
+.sheet-grid td, .sheet-grid th { border: 1px solid var(--border); padding: .35rem .5rem; }
+.sheet-criteria, .sheet-alert { border: 1px solid var(--border); border-radius: 8px; padding: .5rem .7rem; margin: .5rem 0; }
+.sheet-alert { border-color: var(--warn); background: var(--warn-soft); }
+.sheet-alert ul { margin: .2rem 0 0; }
+.sheet-sign { margin-top: 1rem; }
+.sheet-drugs td, .sheet-drugs th { border: 1px solid var(--border); }
+.sheet-drugs { min-width: 760px; }
+.sheet-sign th, .sheet-sign td { border: 1px solid var(--border); padding: .9rem .5rem .3rem; text-transform: none; font-size: .8rem; }
+.blank { display: inline-block; min-width: 7rem; border-bottom: 1px solid var(--text-muted); height: 1em; }
+input.pct { width: 4.2rem; padding: .2rem .3rem; }
+
+/* ---------- Leaflet & patient view ---------- */
+.leaflet h2 { border-top: 1px solid var(--border); padding-top: 1rem; }
+.lf-head h1 { font-size: 1.6rem; }
+.lf-drug { border-left: 4px solid var(--brand); padding: .2rem 0 .2rem .8rem; margin: .8rem 0; }
+.lf-drug h3 { margin-top: 0; }
+.level { border-radius: 12px; padding: .8rem 1rem; margin: .8rem 0; border: 2px solid var(--border); }
+.level h3 { margin-top: 0; }
+.level.emergency { border-color: var(--danger); background: var(--danger-soft); }
+.level.call { border-color: var(--warn); background: var(--warn-soft); }
+.level.expected { border-color: var(--ok); background: var(--ok-soft); }
+.effects { list-style: none; padding: 0; }
+.effects li { padding: .5rem 0; border-bottom: 1px dashed var(--border); }
+.effects li:last-child { border-bottom: 0; }
+.effects .help { font-size: .9rem; margin-top: .2rem; }
+.effects .call { font-size: .9rem; margin-top: .2rem; font-weight: 600; }
+.patient-card .big, p.big { font-size: 1.15rem; }
+.actions-big { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: .8rem 0; }
+.big-btn { justify-content: center; font-size: 1.02rem; padding: .75rem 1rem; border-radius: 12px; }
+.danger-btn { background: var(--danger); border-color: var(--danger); color: #fff; }
+.anchor-nav { position: sticky; top: 64px; z-index: 4; display: flex; gap: .4rem; overflow-x: auto; padding: .4rem 0; margin-bottom: .6rem; background: var(--bg); }
+.anchor-nav a { flex: none; padding: .35rem .8rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--text); font-size: .9rem; }
+.dates { list-style: none; padding: 0; }
+.dates li { padding: .45rem .6rem; border-radius: 8px; margin-bottom: .2rem; }
+.dates li.past { color: var(--text-muted); text-decoration: line-through; opacity: .7; }
+.dates li.next { background: var(--brand-soft); border: 1px solid var(--brand); font-weight: 600; }
+body.patient-mode .mainnav, body.patient-mode .search, body.patient-mode .disclaimer-bar { display: none; }
+body.patient-mode .topbar-inner { justify-content: space-between; }
+body.patient-mode main { font-size: 1.05rem; }
+.qr-card { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: 1.2rem; align-items: start; }
+.qr svg { width: 100%; height: auto; border-radius: 8px; background: #fff; }
+@media (max-width: 640px) { .qr-card { grid-template-columns: 1fr; } .qr { max-width: 260px; } }
+
 /* ---------- Print ---------- */
+@page { margin: 12mm; }
 @media print {
-  .topbar, .footer, .disclaimer-bar, .head-actions, .no-print, details.calc-box:not([open]) { display: none !important; }
+  .topbar, .footer, .disclaimer-bar, .head-actions, .no-print, .anchor-nav, details.calc-box:not([open]) { display: none !important; }
+  .order-sheet { border: 0; padding: 0; font-size: 9.5pt; }
+  .order-sheet th, .order-sheet td { padding: 3px 4px; }
+  .sheet-drugs td, .sheet-drugs th { border: 1px solid #999; }
+  input.pct { border: 0; width: 2.6rem; font: inherit; padding: 0; }
+  .level { break-inside: avoid; }
+  .cal-day { opacity: 1; }
   body { background: #fff; color: #000; font-size: 11pt; }
   main { padding: 0; max-width: none; }
   .card { box-shadow: none; border: 1px solid #bbb; break-inside: avoid; }

@@ -2,7 +2,7 @@
  * Service worker: caches the whole app so it works offline (e.g. on a ward with no signal).
  * Bump CACHE when any file changes so phones pick up the new version.
  */
-const CACHE = "oncoregimens-v1";
+const CACHE = "oncoregimens-v2";
 
 const FILES = [
   "./",
@@ -14,9 +14,16 @@ const FILES = [
   "icons/icon-512.png",
   "js/core.js",
   "js/calc.js",
-  "js/app.js",
+  "js/schedule.js",
+  "js/organ.js",
+  "js/interactions.js",
+  "js/cumulative.js",
+  "js/plan.js",
+  "js/patient.js",
+  "js/vendor/qrcode.js",
   "data/common.js",
   "data/drugs.js",
+  "data/dose-adjustments.js",
   "data/regimens/breast.js",
   "data/regimens/gastrointestinal.js",
   "data/regimens/lung.js",
@@ -26,6 +33,14 @@ const FILES = [
   "data/regimens/leukaemia.js",
   "data/supportive.js",
   "data/principles.js",
+  "data/interactions.js",
+  "data/patient.js",
+  "data/patient-drugs.js",
+  "js/ui.js",
+  "js/views-main.js",
+  "js/views-tools.js",
+  "js/views-patient.js",
+  "js/app.js",
 ];
 
 self.addEventListener("install", (event) => {

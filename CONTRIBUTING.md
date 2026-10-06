@@ -35,10 +35,19 @@ After every change, run `npm test`. The tests tell you exactly what is wrong (un
       cap: 2,                            // optional maximum dose in mg (or units)
       doseNote: "twice daily",           // optional text after the dose
       route: "IV push",
-      days: "Day 1",
+      days: "Day 1",                     // read by the calendar: "Day 1", "Days 1–3", "Days 1, 8, 15", "Days 1–4 and 11–14", "From day 6 until recovery", "Daily from day 1"
+      d: [1],                            // optional: explicit days if the text cannot be read (e.g. "Weekly × 12")
       admin: "How to give it: diluent, volume, time, line, warnings.",
+      renalRules: [],                    // optional: override the drug's kidney rules for this line
+      hepaticRules: [],                  // optional: override the drug's liver rules for this line
+      ageRules: [{ ageAbove: 60, setDose: 1000, text: "Age > 60: 1000 mg/m² per dose." }], // optional
     },
   ],
+  cycleDays: 28,                         // optional: cycle length in days if cycle.length has no number
+  phaseInfo: {                           // required when drug lines use phases
+    "Cycles 1–4": { days: 21, cycles: 4 },
+    "Maintenance": { days: 21, cycles: null, gapBefore: 0 }, // null = until progression
+  },
   order: ["Antiemetics", "Drug A", "Drug B"],
   premeds: [ONCO.text.hec],              // shared wording lives in data/common.js
   takeHome: [ONCO.text.hecHome, ONCO.text.fever],
@@ -81,6 +90,33 @@ Add an object to `data/drugs.js`:
   extravasation: "Required if vesicant.",
 }
 ```
+
+## Kidney and liver rules
+
+Rules per drug live in `data/dose-adjustments.js`. The first matching rule wins, so list the most severe first.
+
+```js
+cisplatin: {
+  renal: [
+    { gfrBelow: 30, avoid: true, text: "GFR < 30: do not give." },
+    { gfrBelow: 45, factor: 0.5, text: "GFR 30–44: give 50%." },
+  ],
+  hepatic: [{ biliMgDlAbove: 3, factor: 0.75, text: "Bilirubin > 3 mg/dL: give 75%." }],
+}
+```
+
+Conditions: `gfrBelow`, `scrAbove` (mg/dL), `ageAbove`, `biliMgDlAbove`, `biliXulnAbove`, `astXulnAbove`, `alpXulnAbove` (add `all: true` to require every condition). Effects (one per rule): `factor`, `setDose` (+ optional `setNote`), `avoid`, `caution`. Add `minDose` to apply only to high doses (e.g. HiDAC). Intrathecal lines are skipped automatically.
+
+## Interactions
+
+`data/interactions.js` has other medicines (`agents`), `classes` (e.g. `azole-strong`) and `rules` (`a`, `b`, `severity`, `effect`, `action`). Rules can name drug ids or classes.
+
+## Patient content
+
+- `data/patient-drugs.js`: one entry per drug — `what` (plain words), `effects` (keys from the side-effect guide), `tips`, `diet`.
+- `data/patient.js`: the side-effect guide (each with a level: `emergency`, `call`, `expected`), red flags, food advice, home-medicine text per regimen tag, general advice.
+
+Write for patients: short sentences, everyday words.
 
 ## Add a supportive-care or principles page
 

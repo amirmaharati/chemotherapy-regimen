@@ -256,7 +256,7 @@ ONCO.addDrugs([
       "Baseline audiometry if hearing loss or high cumulative dose planned.",
       "Encourage oral fluids 2–3 L/day for 2–3 days after.",
     ],
-    renal: "Full dose if CrCl ≥ 60 mL/min. CrCl 45–59: reduce (e.g. 25–50%) or switch to carboplatin. CrCl < 45: generally avoid — use carboplatin.",
+    renal: "Full dose if GFR/CrCl ≥ 60 mL/min. 45–59: give 75% (or switch to carboplatin). 30–44: give 50% (strongly consider carboplatin). < 30: do not give. Curative high-dose schedules usually require ≥ 60.",
     hepatic: "No adjustment needed.",
   },
   {

@@ -10,7 +10,7 @@
 
   ONCO.meta = {
     appName: "OncoRegimens",
-    version: "0.1.0",
+    version: "0.2.0",
     contentReviewed: "2026-10",
   };
 

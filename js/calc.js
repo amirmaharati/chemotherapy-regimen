@@ -146,8 +146,42 @@
   };
 
   /*
+   * Final dose for a regimen line: full calculated dose, then kidney/liver/age rules (js/organ.js).
+   * Returns doseForEntry's result plus:
+   *   full: [unadjusted values], factor, avoid, caution, setDose, reasons: [], organ: evaluation
+   */
+  calc.finalDose = function (entry, patient) {
+    const base = calc.doseForEntry(entry, patient);
+    const out = Object.assign({}, base, { full: base.values.slice(), factor: 1, avoid: false, caution: false, reasons: [], organ: null });
+    if (!ONCO.organ || base.error) return out;
+    const org = ONCO.organ.evaluate(entry, patient);
+    out.organ = org;
+    out.reasons = org.reasons;
+    out.caution = org.caution;
+    if (org.avoid) {
+      out.avoid = true;
+      out.values = [];
+      return out;
+    }
+    if (org.setDose === undefined && org.factor === 1) return out;
+    let values = base.values;
+    if (org.setDose !== undefined) {
+      const set = calc.doseForEntry(Object.assign({}, entry, { dose: org.setDose }), patient);
+      values = set.values;
+      out.capped = set.capped;
+    }
+    // Percentage reductions apply to the (capped) dose, e.g. vincristine 50% of 2 mg = 1 mg.
+    out.values = values.map(function (v) { return calc.roundDose(v * org.factor); });
+    out.factor = org.factor;
+    out.setDose = org.setDose;
+    out.setNote = org.setNote;
+    return out;
+  };
+
+  /*
    * Build the patient object from raw form input.
-   * input: { heightCm, weightKg, age, sex, scr, scrUnit, gfrMethod, measuredGfr, floorScr }
+   * input: { heightCm, weightKg, age, sex, scr, scrUnit, gfrMethod, measuredGfr, floorScr,
+   *          bili, biliUnit, biliUln, ast, astUln, alp, alpUln }
    */
   calc.patientFromInput = function (input) {
     const p = {};
@@ -176,6 +210,9 @@
     else if (method === "ckdepi") p.gfrForCarboplatin = p.egfrDeindexed;
     else p.gfrForCarboplatin = p.crcl;
     p.gfrMethod = method;
+    p.liver = ONCO.organ ? ONCO.organ.liverValues(input) : {};
+    p.liverEntered = isFinite(p.liver.biliMgDl) || isFinite(p.liver.astXuln) || isFinite(p.liver.alpXuln);
+    p.kidneyEntered = isFinite(p.gfrForCarboplatin) && p.gfrForCarboplatin > 0;
     return p;
   };
 

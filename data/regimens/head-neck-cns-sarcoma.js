@@ -24,7 +24,7 @@
       emetogenic: "high",
       fnRisk: "low",
       drugs: [
-        { drug: "cisplatin", dose: 100, unit: "mg/m2", route: "IV infusion", days: "Days 1, 22, 43", admin: "In 1000 mL sodium chloride 0.9% over 60 min with pre-hydration (1 L + magnesium) and post-hydration (1 L)." },
+        { drug: "cisplatin", dose: 100, unit: "mg/m2", route: "IV infusion", days: "Days 1, 22, 43", d: [1], admin: "In 1000 mL sodium chloride 0.9% over 60 min with pre-hydration (1 L + magnesium) and post-hydration (1 L)." },
       ],
       order: ["Antiemetics", "Pre-hydration with magnesium", "Cisplatin", "Post-hydration"],
       premeds: [T.hec, T.cisplatinHydration],
@@ -66,6 +66,10 @@
         { phase: "Part 2 — adjuvant (start 4 weeks after RT)", drug: "temozolomide", label: "Temozolomide (cycle 1)", dose: 150, unit: "mg/m2", route: "Oral", days: "Days 1–5 every 28 days", admin: "At bedtime on an empty stomach." },
         { phase: "Part 2 — adjuvant (start 4 weeks after RT)", drug: "temozolomide", label: "Temozolomide (cycles 2–6, if tolerated)", dose: 200, unit: "mg/m2", route: "Oral", days: "Days 1–5 every 28 days", admin: "Escalate if cycle 1 nadir ANC ≥ 1.5 and platelets ≥ 100 × 10⁹/L and non-haematological toxicity ≤ grade 2." },
       ],
+      phaseInfo: {
+        "Part 1 — with radiotherapy": { days: 42, cycles: 1 },
+        "Part 2 — adjuvant (start 4 weeks after RT)": { days: 28, cycles: 6, gapBefore: 28 },
+      },
       premeds: ["Concurrent phase: ondansetron 8 mg or metoclopramide 10 mg 30–60 min before each dose (low–moderate risk).", "Adjuvant phase: 5-HT3 antagonist before each dose (moderate risk)."],
       takeHome: [
         T.pjp + " **Required during the concurrent phase** (regardless of lymphocyte count) and until lymphocyte recovery.",

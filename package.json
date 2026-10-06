@@ -1,6 +1,6 @@
 {
   "name": "oncoregimens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Chemotherapy regimens reference app (NCCN / eviQ based). Static site, no build step.",
   "scripts": {
